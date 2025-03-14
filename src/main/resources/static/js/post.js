@@ -1,6 +1,4 @@
-
-
-document.querySelector('#addNewUser').addEventListener("click", async function add(evt){
+document.querySelector('#addNewUser').addEventListener("click", async function add(evt) {
     evt.preventDefault();
     let addForm = document.querySelector('#formAddUser')
     let username = addForm.addUsername.value;
@@ -8,7 +6,7 @@ document.querySelector('#addNewUser').addEventListener("click", async function a
     let email = addForm.addEmail.value;
     let password = addForm.addPassword.value;
     let getRole = () => {
-        let array =[];
+        let array = [];
         let role = document.querySelector('#Inputrole');
         for (let i = 0; i < role.length; i++) {
             if (role[i].selected) {
@@ -27,19 +25,17 @@ document.querySelector('#addNewUser').addEventListener("click", async function a
     }
 
     let addUser = await fetch('api/admin',
-        {method: "POST",
-            headers:{
+        {
+            method: "POST",
+            headers: {
                 'Content-type': 'application/json',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify(user)});
+            body: JSON.stringify(user)
+        });
     if (addUser.ok) {
         await getAllUsers();
-        let addForm = $('#formAddUser')
-        addForm.find('#username').val('');
-        addForm.find('#email').val('');
-        addForm.find('#age').val('');
-        addForm.find('#password').val('');
-        addForm.find(getRole()).val('');
+        document.getElementById('formAddUser').reset();
+        document.querySelector('#alluser-tab').click();
     }
-})
+});
